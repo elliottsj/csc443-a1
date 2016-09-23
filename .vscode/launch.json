@@ -23,6 +23,27 @@
       }
     },
     {
+      "name": "C++ Launch with \"file.bin\", \"1024\", \"64\"",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceRoot}/create_random_file",
+      "args": ["file.bin", "1024", "64"],
+      "stopAtEntry": false,
+      "cwd": "${workspaceRoot}",
+      "environment": [],
+      "externalConsole": true,
+      "preLaunchTask": "create_random_file",
+      "linux": {
+        "MIMode": "gdb"
+      },
+      "osx": {
+        "MIMode": "lldb"
+      },
+      "windows": {
+        "MIMode": "gdb"
+      }
+    },
+    {
       "name": "C++ Attach",
       "type": "cppdbg",
       "request": "attach",
