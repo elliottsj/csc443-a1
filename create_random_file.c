@@ -14,6 +14,10 @@ char* random_array(char *array, long bytes) {
 };
 
 int main(int argc, const char * argv[]) {
+    if (argc < 4) {
+        printf("Usage: create_random_file <filename> <total_size> <block_size>");
+        return 1;
+    }
     FILE *fp;
     const char *file_name = argv[1];
     int total_size = atoi(argv[2]);
