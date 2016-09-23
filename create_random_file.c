@@ -5,12 +5,11 @@
  * populate a random array (which is already
  * allocated with enough memory to hold n bytes.
  */
-char* random_array(char *array, long bytes) {
+void random_array(char *array, long bytes) {
     for (int i = 0; i < bytes; i++) {
         char random_char = 'A' + (rand() % 26);
         array[i] = random_char;
     }
-    return array;
 };
 
 int main(int argc, const char * argv[]) {
@@ -30,9 +29,9 @@ int main(int argc, const char * argv[]) {
     // calculate remainder as block_size/total_size isnt clean
     int remainder = total_size % block_size;
     for(int i = 0;i < total_size; i += block_size) {
-        const char *temp_buffer = random_array(buffer, block_size);
+        random_array(buffer, block_size);
         fp = fopen(file_name, "w+");
-        fwrite(temp_buffer, block_size, 1, fp);
+        fwrite(buffer, block_size, 1, fp);
         fclose(fp);
     }
     return 0;
