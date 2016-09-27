@@ -25,7 +25,7 @@ int main(int argc, const char * argv[]) {
     // allocate a fixed amount of memory
     char buffer[block_size];
     // calculate remainder as block_size/total_size may not be clean
-    int remainder = total_size % block_size;
+    int remaining_bytes = total_size % block_size;
 
     // start timer
     struct timeb t;
@@ -38,9 +38,8 @@ int main(int argc, const char * argv[]) {
     }
 
     // write remainder
-    char remainder_buffer[remainder];
-    random_array(remainder_buffer, remainder);
-    fwrite(remainder_buffer, remainder, 1, fp);
+    random_array(buffer, remaining_bytes);
+    fwrite(buffer, remaining_bytes, 1, fp);
     fflush(fp);
 
     // stop timer
