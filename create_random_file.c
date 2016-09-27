@@ -30,6 +30,7 @@ int main(int argc, const char * argv[]) {
     // start timer
     struct timeb t;
     ftime(&t);
+    unsigned long start_ms = t.time * 1000 + t.millitm;
 
     fp = fopen(file_name, "w+");
     for (int i = 0; i < total_size; i += block_size) {
@@ -43,10 +44,11 @@ int main(int argc, const char * argv[]) {
     fflush(fp);
 
     // stop timer
-    unsigned long long now_in_ms = t.time * 1000 + t.millitm;
+    ftime(&t);
+    long stop_ms = t.time * 1000 + t.millitm;
 
     fclose(fp);
-    printf("%llu", now_in_ms);
+    printf("%lu", stop_ms - start_ms);
     printf("\n");
     return 0;
 }
