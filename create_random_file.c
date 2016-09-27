@@ -22,9 +22,6 @@ int main(int argc, const char * argv[]) {
     const char *file_name = argv[1];
     int total_size = atoi(argv[2]);
     int block_size = atoi(argv[3]);
-    if (file_name == NULL) {
-        return 0;
-    }
     // allocate a fixed amount of memory
     char buffer[block_size];
     // calculate remainder as block_size/total_size may not be clean
