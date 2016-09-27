@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/timeb.h>
 
 /**
  * populate a random array (which is already
@@ -26,13 +27,31 @@ int main(int argc, const char * argv[]) {
     }
     // allocate a fixed amount of memory
     char buffer[block_size];
-    // calculate remainder as block_size/total_size isnt clean
+    // calculate remainder as block_size/total_size may not be clean
     int remainder = total_size % block_size;
+
+    // start timer
+    struct timeb t;
+    ftime(&t);
+
     for(int i = 0;i < total_size; i += block_size) {
         random_array(buffer, block_size);
         fp = fopen(file_name, "w+");
         fwrite(buffer, block_size, 1, fp);
-        fclose(fp);
+        fflush(fp);
     }
+    
+    // write remainder
+    char remainder_buffer[remainder];
+    random_array(remainder_buffer, remainder);
+    fwrite(remainder_buffer, remainder, 1, fp);
+    fflush(fp);
+
+    // stop timer
+    unsigned long long now_in_ms = t.time * 1000 + t.millitm;
+
+    fclose(fp);
+    printf("%llu", now_in_ms);
+    printf("\n");
     return 0;
 }
