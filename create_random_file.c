@@ -31,13 +31,13 @@ int main(int argc, const char * argv[]) {
     struct timeb t;
     ftime(&t);
 
-    for(int i = 0;i < total_size; i += block_size) {
+    fp = fopen(file_name, "w+");
+    for (int i = 0; i < total_size; i += block_size) {
         random_array(buffer, block_size);
-        fp = fopen(file_name, "w+");
         fwrite(buffer, block_size, 1, fp);
         fflush(fp);
     }
-    
+
     // write remainder
     char remainder_buffer[remainder];
     random_array(remainder_buffer, remainder);
