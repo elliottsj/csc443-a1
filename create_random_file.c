@@ -19,7 +19,7 @@ int main(int argc, const char * argv[]) {
         return 1;
     }
     FILE *fp;
-    const char *file_name = argv[1];
+    const char *filename = argv[1];
     int total_size = atoi(argv[2]);
     int block_size = atoi(argv[3]);
     // allocate a fixed amount of memory
@@ -32,7 +32,7 @@ int main(int argc, const char * argv[]) {
     ftime(&t);
     unsigned long start_ms = t.time * 1000 + t.millitm;
 
-    fp = fopen(file_name, "w+");
+    fp = fopen(filename, "w+");
     for (int i = 0; i < total_size; i += block_size) {
         random_array(buffer, block_size);
         fwrite(buffer, block_size, 1, fp);
