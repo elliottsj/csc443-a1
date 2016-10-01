@@ -22,36 +22,33 @@ int main(int argc, const char * argv[]) {
     const char *file_name = argv[1];
     int total_size = atoi(argv[2]);
     int block_size = atoi(argv[3]);
-    if (file_name == NULL) {
-        return 0;
-    }
     // allocate a fixed amount of memory
     char buffer[block_size];
     // calculate remainder as block_size/total_size may not be clean
-    int remainder = total_size % block_size;
+    int remaining_bytes = total_size % block_size;
 
     // start timer
     struct timeb t;
     ftime(&t);
+    unsigned long start_ms = t.time * 1000 + t.millitm;
 
-    for(int i = 0;i < total_size; i += block_size) {
+    fp = fopen(file_name, "w+");
+    for (int i = 0; i < total_size; i += block_size) {
         random_array(buffer, block_size);
-        fp = fopen(file_name, "w+");
         fwrite(buffer, block_size, 1, fp);
-        fflush(fp);
     }
-    
+
     // write remainder
-    char remainder_buffer[remainder];
-    random_array(remainder_buffer, remainder);
-    fwrite(remainder_buffer, remainder, 1, fp);
+    random_array(buffer, remaining_bytes);
+    fwrite(buffer, remaining_bytes, 1, fp);
     fflush(fp);
 
     // stop timer
-    unsigned long long now_in_ms = t.time * 1000 + t.millitm;
+    ftime(&t);
+    long stop_ms = t.time * 1000 + t.millitm;
 
     fclose(fp);
-    printf("%llu", now_in_ms);
+    printf("%lu", stop_ms - start_ms);
     printf("\n");
     return 0;
 }
