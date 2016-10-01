@@ -35,12 +35,12 @@ int main(int argc, const char * argv[]) {
     fp = fopen(filename, "w+");
     for (int i = 0; i < total_size; i += block_size) {
         random_array(buffer, block_size);
-        fwrite(buffer, block_size, 1, fp);
+        fwrite(buffer, sizeof(char), block_size, fp);
     }
 
     // write remainder
     random_array(buffer, remaining_bytes);
-    fwrite(buffer, remaining_bytes, 1, fp);
+    fwrite(buffer, sizeof(char), remaining_bytes, fp);
     fflush(fp);
 
     // stop timer
