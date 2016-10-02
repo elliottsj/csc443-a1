@@ -37,7 +37,8 @@ def main():
     ]
 
     # Write files to ./out/file_{block_size}
-    shutil.rmtree('./out')
+    if os.path.exists('./out'):
+        shutil.rmtree('./out')
     os.mkdir('./out')
     csvwriter = csv.DictWriter(
         sys.stdout,
