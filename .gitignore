@@ -4,3 +4,4 @@ file.bin
 /create_random_file
 .vscode/.browse.VC.db-shm
 create_random_file.dSYM
+/out/
