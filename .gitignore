@@ -1,9 +1,8 @@
-file.bin
 *.db
 *.db-wal
-/create_random_file
+.ipynb_checkpoints/
 .vscode/.browse.VC.db-shm
+/create_random_file
 create_random_file.dSYM
 /out/
 /venv/
-.ipynb_checkpoints/
