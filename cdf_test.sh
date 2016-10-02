@@ -3,5 +3,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# Show commands before executing
+set -o xtrace
+
 make
 ./experiment_create_random_file.py

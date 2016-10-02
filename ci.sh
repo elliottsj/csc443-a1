@@ -3,6 +3,9 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# Show commands before executing
+set -o xtrace
+
 # Add CDF to known_hosts
 cat << EOF >> ~/.ssh/known_hosts
 wolf.teach.cs.toronto.edu,128.100.31.200 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAvphXfsPWt/LnAf5JF/xJVsP72LqjDBUPdr5u7jS6R+C0FuI5dSkz92Mlnpvcyhn/iv3TMD+va77P1rzMbiRoJBIVDpGgwQGQjWatvAVaOZ2uXawoK5DJES8ld1oMJ4tALo5REmoupLU1pxygxrfSuIoKWAsYbkin3softNyVNDs=
