@@ -5,3 +5,5 @@ file.bin
 .vscode/.browse.VC.db-shm
 create_random_file.dSYM
 /out/
+/venv/
+.ipynb_checkpoints/
