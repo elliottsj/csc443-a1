@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
+import csv
 import os
 import shutil
 import subprocess
+import sys
 
 def create_random_file(filename, total_size, block_size):
     """
@@ -37,14 +39,20 @@ def main():
     # Write files to ./out/file_{block_size}
     shutil.rmtree('./out')
     os.mkdir('./out')
+    csvwriter = csv.DictWriter(
+        sys.stdout,
+        fieldnames=('block_size', 'milliseconds_elapsed'),
+        dialect='unix'
+    )
+    csvwriter.writeheader()
     for block_size in block_sizes:
         filename = './out/file_{block_size}.bin'.format(block_size=block_size)
-        elapsed_ms = create_random_file(
+        ms_elapsed = create_random_file(
             filename,
             50 * 2 ** 20,  # 50 MiB
             block_size,
         )
-        print('Created {} after {} milliseconds'.format(filename, elapsed_ms))
+        csvwriter.writerow({'block_size': block_size, 'milliseconds_elapsed': ms_elapsed})
 
 if __name__ == '__main__':
     main()
