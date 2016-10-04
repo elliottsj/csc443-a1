@@ -8,7 +8,7 @@
  */
 void random_array(char *array, long bytes) {
     for (int i = 0; i < bytes; i++) {
-        char random_char = 'A' + (rand() % 26);
+        char random_char = 'a' + (rand() % 26);
         array[i] = random_char;
     }
 };
@@ -45,7 +45,7 @@ int main(int argc, const char * argv[]) {
 
     // stop timer
     ftime(&t);
-    long stop_ms = t.time * 1000 + t.millitm;
+    unsigned long stop_ms = t.time * 1000 + t.millitm;
 
     fclose(fp);
     printf("%lu", stop_ms - start_ms);
