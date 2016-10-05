@@ -36,6 +36,7 @@ int main(int argc, const char * argv[]) {
     for (int i = 0; i < total_size; i += block_size) {
         random_array(buffer, block_size);
         fwrite(buffer, sizeof(char), block_size, fp);
+        fflush(fp);
     }
 
     // write remainder
