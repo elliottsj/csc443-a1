@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <sys/timeb.h>
-#include <strings.h>
+#include <string.h>
 
 /**
  * file_ptr : the file pointer, ready to be read from.
