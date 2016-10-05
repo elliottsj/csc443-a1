@@ -35,6 +35,7 @@ def main():
         1 * 2 ** 20,   # 1 MiB
         2 * 2 ** 20,   # 2 MiB
     ]
+    total_size = 50 * 2 ** 20  # 50 MiB
 
     # Write files to ./out/file_{block_size}
     if os.path.exists('./out'):
@@ -42,18 +43,25 @@ def main():
     os.mkdir('./out')
     csvwriter = csv.DictWriter(
         sys.stdout,
-        fieldnames=('block_size', 'milliseconds_elapsed'),
+        fieldnames=('block_size', 'milliseconds_elapsed', 'total_size'),
         dialect='unix'
     )
     csvwriter.writeheader()
     for block_size in block_sizes:
-        filename = './out/file_{block_size}.bin'.format(block_size=block_size)
-        ms_elapsed = create_random_file(
-            filename,
-            50 * 2 ** 20,  # 50 MiB
-            block_size,
-        )
-        csvwriter.writerow({'block_size': block_size, 'milliseconds_elapsed': ms_elapsed})
+        # Create and delete 50 files using the given block size
+        for i in range(50):
+            filename = './out/file_{block_size}_{index}.bin'.format(block_size=block_size, index=i)
+            ms_elapsed = create_random_file(
+                filename,
+                total_size,
+                block_size,
+            )
+            csvwriter.writerow({
+                'block_size': block_size,
+                'milliseconds_elapsed': ms_elapsed,
+                'total_size': total_size,
+            })
+            os.remove(filename)
 
 if __name__ == '__main__':
     main()
