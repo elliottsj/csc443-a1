@@ -8,7 +8,7 @@
  */
 void random_array(char *array, long bytes) {
     for (int i = 0; i < bytes; i++) {
-        char random_char = 'a' + (rand() % 26);
+        char random_char = 'A' + (rand() % 26);
         array[i] = random_char;
     }
 };
