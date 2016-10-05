@@ -15,10 +15,10 @@
  * returns: -1 if there is an error.
  */
 int get_histogram(
-    FILE *file_ptr, 
-    long hist[], 
-    int block_size, 
-    long *milliseconds, 
+    FILE *file_ptr,
+    long hist[],
+    int block_size,
+    long *milliseconds,
     long *total_bytes_read
 ){
     char buffer[block_size];
@@ -29,7 +29,7 @@ int get_histogram(
     unsigned long start_ms = t.time * 1000 + t.millitm;
 
     for (int i = 0; !feof(file_ptr); i += block_size) {
-        // bzero(buffer, block_size);
+        memset(buffer, 0, block_size);
         fread(buffer, sizeof(char), block_size, file_ptr);
         for (int i = 0; i < block_size; i += 1) {
             // ~~ASCII~~ powers
@@ -68,8 +68,8 @@ int main(int argc, const char * argv[]) {
 
     int block_size = atoi(argv[2]);
 
-    int ret = get_histogram(fp, 
-                            hist, 
+    int ret = get_histogram(fp,
+                            hist,
                             block_size,
                             &milliseconds,
                             &filelen);
