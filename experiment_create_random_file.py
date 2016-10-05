@@ -6,10 +6,12 @@ import shutil
 import subprocess
 import sys
 
+
 def create_random_file(filename, total_size, block_size):
     """
-    Execute ./create_random_file with the given arguments and return the number of milliseconds
-    it took to create the file.
+    Return the number of milliseconds it took to create the file.
+
+    Execute ./create_random_file with the given arguments.
     """
     result = subprocess.run(
         ['./create_random_file', filename, str(total_size), str(block_size)],
@@ -30,8 +32,8 @@ def main():
         4 * 2 ** 10,   # 4 KiB
         8 * 2 ** 10,   # 8 KiB
         64 * 2 ** 10,  # 64 KiB
-        128 * 2 ** 10, # 128 KiB
-        512 * 2 ** 10, # 512 KiB
+        128 * 2 ** 10,  # 128 KiB
+        512 * 2 ** 10,  # 512 KiB
         1 * 2 ** 20,   # 1 MiB
         2 * 2 ** 20,   # 2 MiB
     ]

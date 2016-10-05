@@ -1,8 +1,14 @@
+get_histogram
+get_histogram.dSYM/
+.DS_Store
 *.db
 *.db-wal
 .ipynb_checkpoints/
 .vscode/.browse.VC.db-shm
 /create_random_file
 create_random_file.dSYM
+/get_histogram
+get_histogram.dSYM
 /out/
 /venv/
+mybigfile.txt
