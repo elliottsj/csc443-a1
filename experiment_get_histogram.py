@@ -13,7 +13,11 @@ def get_histogram(filename, block_size):
     it took to create the file.
     """
     result = subprocess.run(
-        ['./get_histogram', filename, str(block_size)],
+        [
+            os.path.join(os.path.dirname(os.path.realpath(__file__)), './get_histogram'),
+            filename,
+            str(block_size),
+        ],
         stdout=subprocess.PIPE,
     )
     # parse the result to get the desired time
@@ -25,8 +29,14 @@ def main():
     Call ./get_histogram to read mybigfile.txt using ten different block sizes,
     each in a range of 100B to 3MB.
     """
+    if len(sys.argv) < 2:
+        print('Usage: experiment_get_histogram <filename>')
+        sys.exit(1)
+    filename = sys.argv[1]
+
     block_sizes = [
         128,           # 128 B
+        512,           # 512 B
         1 * 2 ** 10,   # 1 KiB
         4 * 2 ** 10,   # 4 KiB
         8 * 2 ** 10,   # 8 KiB
@@ -35,7 +45,6 @@ def main():
         512 * 2 ** 10,  # 512 KiB
         1 * 2 ** 20,   # 1 MiB
         2 * 2 ** 20,   # 2 MiB
-        3 * 2 ** 20,   # 3 MiB
     ]
     total_size = 100 * 2 ** 20  # 100 MiB
 
@@ -50,7 +59,6 @@ def main():
     csvwriter.writeheader()
     for block_size in block_sizes:
         for i in range(50):
-            filename = './mybigfile.txt'
             ms_elapsed = get_histogram(
                 filename,
                 block_size,
