@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import csv
+import glob
 import os
 import shutil
 import subprocess
@@ -14,7 +15,12 @@ def create_random_file(filename, total_size, block_size):
     Execute ./create_random_file with the given arguments.
     """
     result = subprocess.run(
-        ['./create_random_file', filename, str(total_size), str(block_size)],
+        [
+            os.path.join(os.path.dirname(os.path.realpath(__file__)), './create_random_file'),
+            filename,
+            str(total_size),
+            str(block_size),
+        ],
         stdout=subprocess.PIPE,
     )
     return int(result.stdout)
@@ -25,6 +31,16 @@ def main():
     Call ./create_random_file to create ten 50 MiB files, each using a unique block size
     ranging from 128 B to 2 MiB
     """
+    # Write files to ./<output_directory>/file_{block_size}
+    if len(sys.argv) < 2:
+        print('Usage: experiment_create_random_file <output_directory>')
+        sys.exit(1)
+    output_directory = sys.argv[1]
+    if not os.path.exists(output_directory):
+        os.mkdir(output_directory)
+    for f in glob.glob(os.path.join(output_directory, '*')):
+        os.remove(f)
+
     block_sizes = [
         128,           # 128 B
         512,           # 512 B
@@ -39,10 +55,6 @@ def main():
     ]
     total_size = 50 * 2 ** 20  # 50 MiB
 
-    # Write files to ./out/file_{block_size}
-    if os.path.exists('./out'):
-        shutil.rmtree('./out')
-    os.mkdir('./out')
     csvwriter = csv.DictWriter(
         sys.stdout,
         fieldnames=('block_size', 'milliseconds_elapsed', 'total_size'),
@@ -52,7 +64,10 @@ def main():
     for block_size in block_sizes:
         # Create and delete 50 files using the given block size
         for i in range(50):
-            filename = './out/file_{block_size}_{index}.bin'.format(block_size=block_size, index=i)
+            filename = os.path.join(
+                output_directory,
+                './file_{block_size}_{index}.bin'.format(block_size=block_size, index=i)
+            )
             ms_elapsed = create_random_file(
                 filename,
                 total_size,
