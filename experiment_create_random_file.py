@@ -48,8 +48,8 @@ def main():
     )
     csvwriter.writeheader()
     for block_size in block_sizes:
-        # Create 5 files using the given block size
-        for i in range(5):
+        # Create and delete 50 files using the given block size
+        for i in range(50):
             filename = './out/file_{block_size}_{index}.bin'.format(block_size=block_size, index=i)
             ms_elapsed = create_random_file(
                 filename,
@@ -61,6 +61,7 @@ def main():
                 'milliseconds_elapsed': ms_elapsed,
                 'total_size': total_size,
             })
+            os.remove(filename)
 
 if __name__ == '__main__':
     main()
