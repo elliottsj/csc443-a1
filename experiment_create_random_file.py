@@ -53,7 +53,7 @@ def main():
         1 * 2 ** 20,   # 1 MiB
         2 * 2 ** 20,   # 2 MiB
     ]
-    total_size = 50 * 2 ** 20  # 50 MiB
+    total_size = 100 * 2 ** 20  # 50 MiB
 
     csvwriter = csv.DictWriter(
         sys.stdout,
