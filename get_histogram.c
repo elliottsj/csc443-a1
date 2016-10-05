@@ -33,7 +33,7 @@ int get_histogram(
         fread(buffer, sizeof(char), block_size, file_ptr);
         for (int i = 0; i < block_size; i += 1) {
             // ~~ASCII~~ powers
-            hist[(int)buffer[i] - 'a'] += 1;
+            hist[(int)buffer[i] - 'A'] += 1;
         }
         *total_bytes_read += (long)block_size;
     }
