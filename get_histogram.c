@@ -49,18 +49,19 @@ int get_histogram(
     return 0;
 }
 
-long hist[26];
-long milliseconds;
-long filelen;
 
 /**
 * Compute the histogram using 2K buffers
 */
 int main(int argc, const char * argv[]) {
-    if (argc < 2) {
+    if (argc < 3) {
         printf("Usage: get_histogram <filename> <block_size>");
         return 1;
     }
+
+    long hist[26];
+    long milliseconds;
+    long filelen;
 
     const char *filename = argv[1];
     FILE *fp;
